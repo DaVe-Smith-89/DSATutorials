@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays & Memory - DSA Learner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: { primaryColor: '#e0e7ff', primaryTextColor: '#1e3a8a', primaryBorderColor: '#818cf8', lineColor: '#6366f1' } });
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans leading-relaxed">
+    <nav class="bg-blue-800 p-4 text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold flex items-center gap-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                DSA Learner
+            </a>
+            <div class="space-x-6 hidden md:flex items-center">
+                <a href="arrays.html" class="text-blue-200 border-b-2 border-blue-200 font-semibold pb-1">Arrays</a>
+                <a href="linked-lists.html" class="hover:text-blue-200 transition">Linked Lists</a>
+                <a href="stacks-queues.html" class="hover:text-blue-200 transition">Stacks & Queues</a>
+                <a href="trees.html" class="hover:text-blue-200 transition">Trees</a>
+                <a href="quiz.html" class="bg-yellow-400 text-blue-900 px-4 py-2 rounded-full font-bold hover:bg-yellow-300 transition shadow">Quiz</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-10 p-6 bg-white rounded-xl shadow-xl mb-16 max-w-5xl border border-gray-100">
+        <header class="mb-10 text-center">
+            <h1 class="text-4xl font-extrabold text-blue-900 mb-4">Arrays & Memory Management</h1>
+            <p class="text-xl text-gray-600">The foundation of physical data structures and C++ memory mechanics.</p>
+        </header>
+        
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-indigo-800 flex items-center gap-3">
+                <span class="bg-indigo-100 text-indigo-800 rounded-full w-10 h-10 flex items-center justify-center">1</span>
+                C++ Pointers & Basics
+            </h2>
+            <p class="mb-4 text-lg">Before diving into data structures, you must understand how memory is accessed in C++. Variables live in memory addresses, and <strong>pointers</strong> are special variables that store these addresses.</p>
+            <div class="bg-gray-900 rounded-lg p-6 shadow-inner text-gray-100 font-mono text-sm md:text-base mb-6">
+<pre><span class="text-blue-400">int</span> a = <span class="text-yellow-300">5</span>;      <span class="text-gray-500">// 'a' is a value type variable storing the integer 5</span>
+<span class="text-blue-400">int</span>* p;         <span class="text-gray-500">// 'p' is a pointer that can hold the memory address of an integer</span>
+p = &a;         <span class="text-gray-500">// The '&' operator gets the memory address of 'a'. Now p points to a</span>
+cout << *p;     <span class="text-gray-500">// The '*' operator dereferences 'p', accessing the value 5</span>
+*p = <span class="text-yellow-300">6</span>;         <span class="text-gray-500">// This directly changes the value in that memory address. Now a = 6</span></pre>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-indigo-800 flex items-center gap-3">
+                <span class="bg-indigo-100 text-indigo-800 rounded-full w-10 h-10 flex items-center justify-center">2</span>
+                Arrays: The Contiguous Structure
+            </h2>
+            <p class="mb-4 text-lg">An array is a <strong>physical, linear data structure</strong> that stores a fixed-size collection of elements of the same type in <strong>adjacent (contiguous) memory locations</strong>.</p>
+            
+            <div class="flex justify-center mb-8 bg-blue-50 py-6 rounded-lg border border-blue-100">
+                <div class="flex border-2 border-blue-400 rounded overflow-hidden shadow-sm">
+                    <div class="flex flex-col"><div class="bg-blue-100 text-blue-800 text-xs text-center p-1 border-b border-r border-blue-300">Index 0</div><div class="p-4 text-2xl font-bold text-center bg-white border-r border-blue-200">4</div></div>
+                    <div class="flex flex-col"><div class="bg-blue-100 text-blue-800 text-xs text-center p-1 border-b border-r border-blue-300">Index 1</div><div class="p-4 text-2xl font-bold text-center bg-white border-r border-blue-200">2</div></div>
+                    <div class="flex flex-col"><div class="bg-blue-100 text-blue-800 text-xs text-center p-1 border-b border-r border-blue-300">Index 2</div><div class="p-4 text-2xl font-bold text-center bg-white border-r border-blue-200">1</div></div>
+                    <div class="flex flex-col"><div class="bg-blue-100 text-blue-800 text-xs text-center p-1 border-b border-r border-blue-300">Index 3</div><div class="p-4 text-2xl font-bold text-center bg-white border-r border-blue-200">3</div></div>
+                    <div class="flex flex-col"><div class="bg-blue-100 text-blue-800 text-xs text-center p-1 border-b border-r border-blue-300">Index 4</div><div class="p-4 text-2xl font-bold text-center bg-white border-r border-blue-200">5</div></div>
+                    <div class="flex flex-col"><div class="bg-blue-100 text-blue-800 text-xs text-center p-1 border-b border-blue-300">Index 5</div><div class="p-4 text-2xl font-bold text-center bg-white">7</div></div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-green-50 border-l-4 border-green-500 p-5 rounded">
+                    <h3 class="font-bold text-green-800 text-lg mb-2">Advantages</h3>
+                    <p class="text-green-900">Because elements are consecutive, if you know the index, the computer can instantly calculate the exact memory address. This means <strong>access time is O(1)</strong> (extremely fast).</p>
+                </div>
+                <div class="bg-red-50 border-l-4 border-red-500 p-5 rounded">
+                    <h3 class="font-bold text-red-800 text-lg mb-2">Disadvantages</h3>
+                    <p class="text-red-900">The <strong>size is fixed</strong> upon creation. Furthermore, inserting or deleting an element in the middle requires shifting all subsequent elements, which is slow (O(N)).</p>
+                </div>
+            </div>
+            
+            <p class="mb-2 font-semibold">Under the hood, an array name is just a pointer to its first element:</p>
+            <div class="bg-gray-900 rounded-lg p-4 shadow-inner text-gray-100 font-mono text-sm md:text-base">
+<pre><span class="text-blue-400">int</span> A[<span class="text-yellow-300">5</span>] = {1, 2, 3, 6, 8};
+A[<span class="text-yellow-300">0</span>] = <span class="text-yellow-300">12</span>;      <span class="text-gray-500">// Standard indexing</span>
+*A = <span class="text-yellow-300">12</span>;        <span class="text-gray-500">// Exactly equivalent to A[0]</span>
+*(A+<span class="text-yellow-300">1</span>) = <span class="text-yellow-300">5</span>;     <span class="text-gray-500">// Pointer arithmetic: accesses A[1]</span></pre>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-indigo-800 flex items-center gap-3">
+                <span class="bg-indigo-100 text-indigo-800 rounded-full w-10 h-10 flex items-center justify-center">3</span>
+                Stack vs Heap Memory
+            </h2>
+            <p class="mb-6 text-lg">In C++, variables can be allocated in two different regions of RAM: the Stack or the Heap. Understanding the difference is vital for avoiding bugs.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div class="p-6 border-2 rounded-xl bg-white shadow-md border-indigo-200 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">Automatic</div>
+                    <h3 class="font-bold text-2xl text-indigo-800 mb-4">Stack Memory</h3>
+                    <p class="mb-4 text-gray-700">Used for local variables (e.g., <code>int a = 5;</code>). It is highly organized and fast.</p>
+                    <ul class="list-none space-y-2 text-gray-700">
+                        <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> <strong>Very fast</strong> to allocate and access.</li>
+                        <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Memory is automatically freed when the function scope ends (no memory leaks).</li>
+                        <li class="flex items-start"><svg class="w-5 h-5 text-red-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Size is limited and fixed at compile time.</li>
+                    </ul>
+                </div>
+                
+                <div class="p-6 border-2 rounded-xl bg-white shadow-md border-rose-200 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-rose-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">Manual</div>
+                    <h3 class="font-bold text-2xl text-rose-800 mb-4">Heap Memory</h3>
+                    <p class="mb-4 text-gray-700">Used for dynamic allocations (using the <code>new</code> keyword). It is a large pool of memory.</p>
+                    <ul class="list-none space-y-2 text-gray-700">
+                        <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Can request massive amounts of memory at runtime.</li>
+                        <li class="flex items-start"><svg class="w-5 h-5 text-red-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Slower allocation.</li>
+                        <li class="flex items-start"><svg class="w-5 h-5 text-red-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> <strong>NO garbage collection in C++</strong>. You must manually call <code>delete</code> or risk filling up your RAM!</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="bg-blue-50 p-6 rounded-lg border border-blue-100">
+                <h3 class="font-bold text-xl mb-3 text-blue-900">Dynamic Arrays (Resizing)</h3>
+                <p class="mb-4">Because standard arrays are fixed in size, if you need more space, you must use the Heap to create a new, larger array, copy the data over, and carefully delete the old array.</p>
+                <div class="bg-gray-900 rounded p-4 text-gray-100 font-mono text-sm md:text-base">
+<pre><span class="text-blue-400">int</span>* A = <span class="text-purple-400">new</span> <span class="text-blue-400">int</span>[<span class="text-yellow-300">5</span>];                 <span class="text-gray-500">// 1. Allocate initial array on the heap</span>
+
+<span class="text-blue-400">int</span>* temp = <span class="text-purple-400">new</span> <span class="text-blue-400">int</span>[<span class="text-yellow-300">10</span>];             <span class="text-gray-500">// 2. Create a bigger array when full</span>
+<span class="text-purple-400">for</span>(<span class="text-blue-400">int</span> i=<span class="text-yellow-300">0</span>; i<<span class="text-yellow-300">5</span>; i++) temp[i]=A[i]; <span class="text-gray-500">// 3. Copy the existing data</span>
+<span class="text-purple-400">delete</span>[] A;                          <span class="text-gray-500">// 4. CRITICAL: Free the old memory!</span>
+A = temp;                            <span class="text-gray-500">// 5. Reassign pointer to the new array</span></pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-3xl font-bold mb-6 text-indigo-800 flex items-center gap-3">
+                <span class="bg-indigo-100 text-indigo-800 rounded-full w-10 h-10 flex items-center justify-center">4</span>
+                2D Arrays
+            </h2>
+            <p class="mb-4 text-lg">2D arrays are used to represent matrices or grids. They can also be created on the Stack or the Heap.</p>
+            <div class="bg-gray-900 rounded-lg p-6 shadow-inner text-gray-100 font-mono text-sm md:text-base">
+<pre><span class="text-gray-500">// Stack Allocation</span>
+<span class="text-blue-400">int</span> A[<span class="text-yellow-300">2</span>][<span class="text-yellow-300">3</span>];                          
+A[<span class="text-yellow-300">1</span>][<span class="text-yellow-300">2</span>] = <span class="text-yellow-300">99</span>;
+
+<span class="text-gray-500">// Heap Allocation (Array of pointers)</span>
+<span class="text-blue-400">int</span>** A_heap = <span class="text-purple-400">new</span> <span class="text-blue-400">int</span>*[<span class="text-yellow-300">3</span>];
+<span class="text-purple-400">for</span>(<span class="text-blue-400">int</span> i = <span class="text-yellow-300">0</span>; i < <span class="text-yellow-300">3</span>; i++) {
+    A_heap[i] = <span class="text-purple-400">new</span> <span class="text-blue-400">int</span>[<span class="text-yellow-300">4</span>];
+}</pre>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

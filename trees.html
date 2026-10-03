@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trees - DSA Learner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: { primaryColor: '#ffe4e6', primaryTextColor: '#be123c', primaryBorderColor: '#f43f5e', lineColor: '#e11d48', fontFamily: 'sans-serif' } });
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans leading-relaxed">
+    <nav class="bg-blue-800 p-4 text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold flex items-center gap-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                DSA Learner
+            </a>
+            <div class="space-x-6 hidden md:flex items-center">
+                <a href="arrays.html" class="hover:text-blue-200 transition">Arrays</a>
+                <a href="linked-lists.html" class="hover:text-blue-200 transition">Linked Lists</a>
+                <a href="stacks-queues.html" class="hover:text-blue-200 transition">Stacks & Queues</a>
+                <a href="trees.html" class="text-blue-200 border-b-2 border-blue-200 font-semibold pb-1">Trees</a>
+                <a href="quiz.html" class="bg-yellow-400 text-blue-900 px-4 py-2 rounded-full font-bold hover:bg-yellow-300 transition shadow">Quiz</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-10 p-6 bg-white rounded-xl shadow-xl mb-16 max-w-5xl border border-gray-100">
+        <header class="mb-10 text-center">
+            <h1 class="text-4xl font-extrabold text-rose-700 mb-4">Trees & Advanced Data Structures</h1>
+            <p class="text-xl text-gray-600">Conquering hierarchy with non-linear architectures.</p>
+        </header>
+        
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-rose-800 border-b pb-2">Binary Search Tree (BST)</h2>
+            <div class="flex flex-col md:flex-row gap-8 items-center mb-8">
+                <div class="w-full md:w-2/3">
+                    <p class="mb-4 text-lg">A Tree is a non-linear data structure. A <strong>Binary Tree</strong> dictates that each node can have at most 2 children (Left and Right). A <strong>Binary Search Tree (BST)</strong> adds powerful rules to make searching incredibly fast (O(log N)):</p>
+                    <ul class="list-disc pl-6 mb-4 space-y-2 text-gray-700">
+                        <li>The <strong>Left subtree</strong> of a node contains ONLY nodes with keys <strong>lesser</strong> than the node's key.</li>
+                        <li>The <strong>Right subtree</strong> of a node contains ONLY nodes with keys <strong>greater</strong> than the node's key.</li>
+                        <li>No duplicate nodes are permitted.</li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/3 flex justify-center bg-rose-50 p-4 rounded-lg border border-rose-200">
+                    <div class="mermaid">
+                    flowchart TD
+                        A((40)) --> B((20))
+                        A --> C((100))
+                        B --> D((10))
+                        B --> E((25))
+                        C -.-> Null1(( ))
+                        C --> F((125))
+                        style Null1 fill:none,stroke:none
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-5 rounded">
+                <h3 class="font-bold text-yellow-800 text-lg mb-2">Complex Operations: Deletion</h3>
+                <p class="text-gray-800 mb-2">Deleting a node in a BST is tricky because it must remain a valid BST after removal. There are 3 cases:</p>
+                <ol class="list-decimal pl-6 space-y-1 text-gray-700">
+                    <li><strong>Leaf Node:</strong> Simply delete it and set the parent's pointer to NULL.</li>
+                    <li><strong>Node with 1 Child:</strong> Bypass the node by linking its parent directly to its single child.</li>
+                    <li><strong>Node with 2 Children:</strong> Find the maximum value in the left subtree (or minimum in the right subtree), copy its value to the node you want to delete, and then delete that original min/max node.</li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-rose-800 border-b pb-2">Tree Traversals</h2>
+            <p class="mb-4 text-lg">Traversal is the process of visiting all nodes in a tree exactly once. There are different strategies for this:</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-indigo-50 border border-indigo-200 p-5 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-xl text-indigo-800 mb-2">Breadth First (Level Order)</h3>
+                    <p class="mb-2 text-gray-700">Visits nodes layer by layer, horizontally from top to bottom.</p>
+                    <p class="bg-white px-3 py-2 border rounded font-mono text-sm text-center">Output from diagram above: <br>40, 20, 100, 10, 25, 125</p>
+                </div>
+                
+                <div class="bg-teal-50 border border-teal-200 p-5 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-xl text-teal-800 mb-2">Depth First</h3>
+                    <ul class="list-none space-y-2 text-gray-700 text-sm">
+                        <li><strong>Pre-order (Root, Left, Right):</strong><br> <code>40, 20, 10, 25, 100, 125</code></li>
+                        <li><strong>In-order (Left, Root, Right):</strong><br> <span class="bg-yellow-200 px-1 rounded font-bold">10, 20, 25, 40, 100, 125</span> (Yields Sorted Order!)</li>
+                        <li><strong>Post-order (Left, Right, Root):</strong><br> <code>10, 25, 20, 125, 100, 40</code></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-3xl font-bold mb-6 text-rose-800 border-b pb-2">Self-Balancing Trees & Heaps</h2>
+            <p class="mb-6 text-lg">If a BST is populated with sorted data (e.g., 1, 2, 3, 4), it becomes a straight line, losing its O(log N) speed and degrading to O(N). Self-balancing trees automatically rotate their structure to prevent this.</p>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                <div class="bg-white border-2 border-blue-200 rounded-xl shadow-md p-6 relative">
+                    <h3 class="font-bold text-2xl text-blue-700 mb-3">AVL Tree</h3>
+                    <p class="mb-4 text-gray-700 text-sm">Named after Adelson-Velsky and Landis (1962). It enforces a strict rule:</p>
+                    <p class="font-medium text-gray-900 bg-blue-50 p-3 rounded text-sm text-center">For EVERY node, the maximum height difference between its left and right subtree can be at most 1.</p>
+                    <p class="mt-4 text-gray-700 text-sm">If it exceeds 1 during insertion/deletion, the tree performs structural rotations. Result: guaranteed <strong>O(log N)</strong> lookups, but slower insertions due to strict balancing.</p>
+                </div>
+
+                <div class="bg-white border-2 border-red-200 rounded-xl shadow-md p-6 relative">
+                    <h3 class="font-bold text-2xl text-red-700 mb-3">Red-Black Tree</h3>
+                    <p class="mb-3 text-gray-700 text-sm">A less strict balancing act that requires fewer rotations, making insertions/deletions faster than AVL, though lookups might be slightly slower. Rules:</p>
+                    <ul class="list-disc pl-5 space-y-1 text-xs text-gray-800">
+                        <li>Every node is colored Red or Black.</li>
+                        <li>The Root is always Black.</li>
+                        <li>Red nodes CANNOT have Red children (must be Black).</li>
+                        <li>Every path from a node to its empty leaf slots contains the exact same number of Black nodes.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white border-2 border-emerald-200 rounded-xl shadow-md p-6 relative">
+                    <h3 class="font-bold text-2xl text-emerald-700 mb-3">Heap</h3>
+                    <p class="mb-4 text-gray-700 text-sm">A special complete binary tree, entirely focused on prioritizing the highest or lowest value at the root node. Useful for Priority Queues.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-gray-800">
+                        <li><strong>Max-Heap:</strong> Every parent node is strictly GREATER than or equal to its children. (Max at root)</li>
+                        <li><strong>Min-Heap:</strong> Every parent node is strictly LESSER than or equal to its children. (Min at root)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate DSA Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans leading-relaxed">
+    <nav class="bg-blue-800 p-4 text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold flex items-center gap-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                DSA Learner
+            </a>
+            <div class="space-x-6 hidden md:flex items-center">
+                <a href="arrays.html" class="hover:text-blue-200 transition">Arrays</a>
+                <a href="linked-lists.html" class="hover:text-blue-200 transition">Linked Lists</a>
+                <a href="stacks-queues.html" class="hover:text-blue-200 transition">Stacks & Queues</a>
+                <a href="trees.html" class="hover:text-blue-200 transition">Trees</a>
+                <a href="quiz.html" class="text-yellow-400 border-b-2 border-yellow-400 font-bold pb-1">Quiz</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-10 p-6 bg-white rounded-xl shadow-xl mb-16 max-w-4xl border border-gray-100">
+        <header class="mb-10 text-center">
+            <h1 class="text-4xl font-extrabold text-blue-900 mb-4">Ultimate Mastery Quiz (50 Questions)</h1>
+            <p class="text-xl text-gray-600">Test your deep theoretical and practical knowledge of C++ and Data Structures.</p>
+        </header>
+        
+        <div id="quiz-container">
+            <!-- Quiz questions injected by JS -->
+        </div>
+
+        <div id="results" class="hidden mt-10 p-8 bg-green-50 border-2 border-green-400 text-green-900 rounded-xl shadow-lg text-center transform transition duration-500 scale-100">
+            <h2 class="text-3xl font-extrabold mb-4 flex items-center justify-center gap-3">
+                <svg class="w-10 h-10 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                Quiz Completed!
+            </h2>
+            <p class="text-2xl mb-6">Your final score: <span id="score" class="font-black text-6xl text-green-700 block mt-4 mb-4">0</span> <span class="text-xl">out of <span id="total-questions">0</span></span></p>
+            <p id="feedback-msg" class="text-2xl mb-8 font-bold"></p>
+            <button onclick="location.reload()" class="bg-green-600 text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-green-700 transition shadow hover:shadow-lg">Take the Quiz Again</button>
+        </div>
+
+        <button id="submit-btn" class="mt-8 w-full bg-blue-600 text-white font-bold text-xl py-5 rounded-xl hover:bg-blue-700 transition shadow-lg hover:shadow-xl">Submit All Answers</button>
+    </main>
+
+    <script>
+        const questions = [
+            // C++ Basics & Memory
+            { question: "What does the '&' operator do in C++ when placed before a variable name?", options: ["Dereferences the variable", "Returns the memory address of the variable", "Deletes the variable from memory", "Multiplies the variable"], answer: 1 },
+            { question: "If 'int a = 5;' and 'int* p = &a;', what does '*p' evaluate to?", options: ["The memory address of 'a'", "The pointer itself", "5", "An error"], answer: 2 },
+            { question: "If 'int a = 5; int* p = &a; *p = 6;', what is the final value of 'a'?", options: ["5", "6", "Unknown", "Compile error"], answer: 1 },
+            { question: "Which of the following describes Stack Memory?", options: ["Fast to access, automatic allocation/deallocation", "Slow to access, requires manual deallocation", "Infinite in size", "Does not exist in C++"], answer: 0 },
+            { question: "Heap memory in C++ requires manual deallocation using which keyword?", options: ["free", "remove", "delete", "destroy"], answer: 2 },
+            { question: "What happens if you allocate memory on the heap using 'new' but forget to use 'delete'?", options: ["The compiler deletes it for you", "It causes a memory leak", "It is automatically moved to the stack", "The program refuses to compile"], answer: 1 },
+            { question: "Does C++ have automatic garbage collection?", options: ["Yes, always", "Only for arrays", "No", "Yes, but only in strict mode"], answer: 2 },
+            { question: "In C++, does the compiler automatically check if an array index is out of bounds?", options: ["Yes", "No", "Only for dynamic arrays", "Only when compiled with -O3"], answer: 1 },
+            { question: "Which of the following dynamically allocates an array of 5 integers on the heap?", options: ["int A[5];", "int* A = new int[5];", "int A = new int(5);", "int A[] = {1, 2, 3, 4, 5};"], answer: 1 },
+            { question: "To correctly delete a dynamically allocated array 'A', what syntax MUST be used?", options: ["delete A;", "delete[] A;", "free(A);", "remove A;"], answer: 1 },
+            
+            // Arrays
+            { question: "How are elements of an array stored in memory?", options: ["In scattered locations", "In a tree structure", "In consecutive (adjacent) memory locations", "In a linked list format"], answer: 2 },
+            { question: "If you have an array 'int A[5];', what does '*A' evaluate to?", options: ["A[1]", "The memory address of the array", "A[0]", "Compilation error"], answer: 2 },
+            { question: "If 'int A[5];', what is '*(A+1)' mathematically equivalent to?", options: ["A[0] + 1", "A[1]", "A[2]", "Adding 1 to every element in the array"], answer: 1 },
+            { question: "What is a primary disadvantage of standard arrays?", options: ["They do not allow direct access", "Their size is fixed at creation", "They are too fast", "They only hold integers"], answer: 1 },
+            { question: "What is the time complexity of accessing an element in an array if the index is known?", options: ["O(N)", "O(log N)", "O(1)", "O(N^2)"], answer: 2 },
+            { question: "How do you declare a 2D array of size 2x3 on the stack?", options: ["int A[2,3];", "int A(2)(3);", "int A[2][3];", "int A[3][2];"], answer: 2 },
+            { question: "Which is the correct logical step sequence to resize a dynamic array?", options: ["Create new array -> Copy data -> Delete old array -> Reassign pointer", "Delete old array -> Create new array -> Copy data -> Reassign pointer", "Reassign pointer -> Create new array -> Delete old array -> Copy data", "Copy data -> Delete old array -> Create new array -> Reassign pointer"], answer: 0 },
+            { question: "Which of the following is considered a 'Physical' data structure?", options: ["Stack", "Queue", "Tree", "Linked List"], answer: 3 },
+            { question: "Which of the following is considered a 'Logical' data structure?", options: ["Array", "Stack", "Integer", "Pointer"], answer: 1 },
+            { question: "Which of the following is a non-linear data structure?", options: ["Array", "Linked List", "Queue", "Tree"], answer: 3 },
+
+            // Linked Lists
+            { question: "How are elements typically stored in a Linked List?", options: ["In consecutive memory locations", "In scattered memory locations", "On a hard drive only", "Inside CPU registers only"], answer: 1 },
+            { question: "In a Singly Linked List, what does each Node contain?", options: ["Data element only", "Next pointer only", "Data element and a pointer to the next node", "Data element, next pointer, and previous pointer"], answer: 2 },
+            { question: "What is a main advantage of a Linked List over an Array?", options: ["Direct access to any index", "O(1) search time", "Size is not fixed; easy insertion/deletion", "Uses strictly less memory overall"], answer: 2 },
+            { question: "What is the main disadvantage of a Linked List?", options: ["It requires manual resizing", "No direct access to elements (O(N) search)", "It cannot store complex objects", "It is limited to 1000 nodes"], answer: 1 },
+            { question: "In C++, when inserting a node 'temp' at the beginning of a Singly Linked List, what is the correct code?", options: ["head = temp; temp->next = head;", "temp->next = head; head = temp;", "head->next = temp;", "temp = head->next;"], answer: 1 },
+            { question: "When deleting the first node in a Linked List using a 'temp' pointer, what must be done to prevent a memory leak?", options: ["delete head;", "free(head);", "delete temp;", "Nothing, it's automatic"], answer: 2 },
+            { question: "In a Doubly Linked List, what extra information does a node store compared to a Singly Linked List?", options: ["A size variable", "A pointer to the root", "A pointer to the previous node", "A priority weight"], answer: 2 },
+            { question: "What is a key benefit of a Doubly Linked List?", options: ["It uses less memory", "It allows traversing backwards", "It prevents memory leaks automatically", "It is faster to create"], answer: 1 },
+            { question: "In our linked list implementation, if 'head == NULL', what does this imply?", options: ["The list is full", "The list is empty", "The program crashed", "The tail is not NULL"], answer: 1 },
+            { question: "To delete the last node in a Singly Linked List (without a tail pointer), you must traverse until you reach:", options: ["The head", "The middle node", "The exact last node", "The second-to-last node"], answer: 3 },
+
+            // Stacks & Queues
+            { question: "What principle does a Stack strictly follow?", options: ["FIFO (First In First Out)", "LIFO (Last In First Out)", "Random Access", "Sorted Access"], answer: 1 },
+            { question: "What is the operation to insert an element onto a stack called?", options: ["Enqueue", "Insert", "Push", "Add"], answer: 2 },
+            { question: "What is the operation to remove an element from a stack called?", options: ["Dequeue", "Delete", "Pop", "Remove"], answer: 2 },
+            { question: "In an array-based stack tracking the 'top' index, if 'top == 0', what does a pop() attempt indicate?", options: ["Stack Overflow", "Stack Underflow (Empty)", "Success", "Array resize needed"], answer: 1 },
+            { question: "Which of the following is a common real-world application of a Stack?", options: ["Print job spooling", "A line at a grocery store", "Undo/Redo buttons in software", "Round-robin CPU scheduling"], answer: 2 },
+            { question: "What principle does a Queue strictly follow?", options: ["LIFO (Last In First Out)", "FIFO (First In First Out)", "Random Access", "Highest Priority First"], answer: 1 },
+            { question: "In a Queue, elements are inserted at the ___ and removed from the ___.", options: ["Front, Rear", "Rear, Front", "Top, Bottom", "Bottom, Top"], answer: 1 },
+            { question: "What is the operation to insert an element into a Queue called?", options: ["Push", "Insert", "Enqueue", "Add"], answer: 2 },
+            { question: "To implement a circular queue efficiently using an array, how is the 'rear' index typically updated to wrap around?", options: ["rear = rear + 1;", "rear = (rear + 1) % capacity;", "rear = capacity - 1;", "rear = 0;"], answer: 1 },
+            { question: "Which of the following is a common real-world application of a Queue?", options: ["Backtracking in a maze", "OS Task Spooling / Printer Queues", "Browser history", "Function call tracking"], answer: 1 },
+
+            // Trees
+            { question: "A Binary Tree can have at most how many children per node?", options: ["1", "2", "3", "Unlimited"], answer: 1 },
+            { question: "What is the average time complexity for searching in a balanced Binary Search Tree?", options: ["O(1)", "O(N)", "O(log2 N)", "O(N^2)"], answer: 2 },
+            { question: "In a Binary Search Tree (BST), where are duplicate nodes placed?", options: ["Left subtree", "Right subtree", "Root", "Duplicates are typically not allowed"], answer: 3 },
+            { question: "If you traverse a BST using In-Order traversal, the output will be:", options: ["Randomly ordered", "Sorted in descending order", "Sorted in ascending order", "Grouped by level"], answer: 2 },
+            { question: "In Pre-Order traversal, the nodes are visited in which exact sequence?", options: ["Left, Root, Right", "Left, Right, Root", "Root, Left, Right", "Right, Root, Left"], answer: 2 },
+            { question: "When deleting a BST node with two children, it is typically replaced by:", options: ["A leaf node", "The maximum of the left subtree (or minimum of the right)", "Its left child directly", "NULL"], answer: 1 },
+            { question: "Which traversal method visits tree nodes horizontally, layer by layer?", options: ["In-Order", "Pre-Order", "Post-Order", "Breadth First (Level Order)"], answer: 3 },
+            { question: "What is the defining structural property of an AVL Tree?", options: ["Nodes must be colored Red or Black", "Max height difference between left and right subtrees is 1", "Every node must have 2 children", "The root must be strictly greater than all leaves"], answer: 1 },
+            { question: "In a Red-Black Tree, which of the following is a strict structural rule?", options: ["A Red node cannot have Red children", "A Black node cannot have Black children", "The Root must be Red", "NIL leaves must be Red"], answer: 0 },
+            { question: "In a Max-Heap, what is the core structural property regarding values?", options: ["The parent is strictly lesser than its children", "The parent is greater than or equal to its children", "Left child is smaller, Right child is larger", "All leaves must be sorted"], answer: 1 }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+        const submitBtn = document.getElementById('submit-btn');
+        const resultsDiv = document.getElementById('results');
+        const scoreSpan = document.getElementById('score');
+        const totalSpan = document.getElementById('total-questions');
+        const feedbackMsg = document.getElementById('feedback-msg');
+
+        function buildQuiz() {
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'mb-8 p-6 border border-gray-200 rounded-xl bg-gray-50 shadow-sm transition-all duration-300 hover:shadow-md';
+                
+                const questionTitle = document.createElement('h3');
+                questionTitle.className = 'font-bold text-xl mb-4 text-gray-800 flex gap-3 items-start';
+                questionTitle.innerHTML = `<span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mt-0.5 shadow">${index + 1}</span> <span class="leading-relaxed">${q.question}</span>`;
+                questionDiv.appendChild(questionTitle);
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'space-y-3 pl-11';
+
+                q.options.forEach((opt, optIndex) => {
+                    const label = document.createElement('label');
+                    label.className = 'flex items-center space-x-4 cursor-pointer p-3 rounded-lg hover:bg-blue-50 transition border border-transparent hover:border-blue-200';
+                    
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = `question${index}`;
+                    radio.value = optIndex;
+                    radio.className = 'form-radio h-5 w-5 text-blue-600 focus:ring-blue-500 transition';
+
+                    const span = document.createElement('span');
+                    span.innerText = opt;
+                    span.className = 'text-gray-700 text-lg';
+
+                    label.appendChild(radio);
+                    label.appendChild(span);
+                    optionsDiv.appendChild(label);
+                });
+
+                questionDiv.appendChild(optionsDiv);
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function showResults() {
+            let score = 0;
+            let missedQuestions = 0;
+            
+            questions.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="question${index}"]:checked`);
+                const currentDiv = quizContainer.children[index];
+                
+                // Clear previous state classes
+                currentDiv.classList.remove('border-gray-200', 'bg-gray-50', 'border-red-400', 'bg-red-50', 'border-green-400', 'bg-green-50');
+                
+                // Reset all labels inside this question
+                const labels = currentDiv.querySelectorAll('label');
+                labels.forEach(l => {
+                    l.classList.remove('bg-green-100', 'border-green-300', 'font-bold', 'bg-red-100', 'border-red-300', 'text-green-800', 'text-red-800');
+                    l.classList.add('border-transparent'); // restore default state for unchecked
+                });
+
+                if (selected) {
+                    const answer = parseInt(selected.value);
+                    if (answer === q.answer) {
+                        score++;
+                        currentDiv.classList.add('border-green-400', 'bg-green-50');
+                        labels[answer].classList.add('bg-green-100', 'border-green-300', 'font-bold', 'text-green-800');
+                        labels[answer].classList.remove('border-transparent');
+                    } else {
+                        missedQuestions++;
+                        currentDiv.classList.add('border-red-400', 'bg-red-50');
+                        // Highlight wrong selection
+                        labels[answer].classList.add('bg-red-100', 'border-red-300', 'text-red-800');
+                        labels[answer].classList.remove('border-transparent');
+                        // Highlight correct answer
+                        labels[q.answer].classList.add('bg-green-100', 'border-green-300', 'font-bold', 'text-green-800');
+                        labels[q.answer].classList.remove('border-transparent');
+                    }
+                } else {
+                    missedQuestions++;
+                    currentDiv.classList.add('border-red-400', 'bg-red-50');
+                    // Highlight correct answer since none was selected
+                    labels[q.answer].classList.add('bg-green-100', 'border-green-300', 'font-bold', 'text-green-800');
+                    labels[q.answer].classList.remove('border-transparent');
+                }
+            });
+
+            scoreSpan.innerText = score;
+            totalSpan.innerText = questions.length;
+            
+            if(score === questions.length) {
+                feedbackMsg.innerText = "Perfect score! You are a Data Structures Master! 🏆";
+                feedbackMsg.className = "text-2xl mb-8 font-black text-green-600";
+            } else if(score >= questions.length * 0.8) {
+                feedbackMsg.innerText = "Excellent job! You have a very strong grasp of the concepts. 🌟";
+                feedbackMsg.className = "text-2xl mb-8 font-black text-blue-600";
+            } else if(score >= questions.length * 0.5) {
+                feedbackMsg.innerText = "Good effort! Review your missed questions to improve. 👍";
+                feedbackMsg.className = "text-2xl mb-8 font-black text-amber-600";
+            } else {
+                feedbackMsg.innerText = "Keep studying! Review the modules and try again. 📚";
+                feedbackMsg.className = "text-2xl mb-8 font-black text-rose-600";
+            }
+
+            resultsDiv.classList.remove('hidden');
+            submitBtn.classList.add('hidden');
+            
+            // Scroll smoothly to results
+            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        buildQuiz();
+        submitBtn.addEventListener('click', showResults);
+    </script>
+</body>
+</html>
